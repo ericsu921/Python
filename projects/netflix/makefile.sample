@@ -1,0 +1,41 @@
+all:
+
+Netflix.html: Netflix.py
+	pydoc3 -w Netflix
+
+Netflix.log:
+	git log > Netflix.log
+
+RunNetflix.tmp: RunNetflix.py RunNetflix.in
+	RunNetflix.py < RunNetflix.in > RunNetflix.tmp
+	diff RunNetflix.tmp RunNetflix.out
+
+TestNetflix.out: TestNetflix.py
+	coverage3 run    --branch TestNetflix.py >  TestNetflix.out 2>&1
+	coverage3 report -m                      >> TestNetflix.out
+
+netflix-tests:
+	git clone https://github.com/cs373-spring-2015/netflix-tests.git
+
+check:
+	@[ -e netflix-tests/EID-RunNetflix.in   ] && echo "netflix-tests/EID-RunNetflix.in   found" || echo "netflix-tests/EID-RunNetflix.in   NOT FOUND"
+	@[ -e netflix-tests/EID-RunNetflix.out  ] && echo "netflix-tests/EID-RunNetflix.out  found" || echo "netflix-tests/EID-RunNetflix.out  NOT FOUND"
+	@[ -e netflix-tests/EID-TestNetflix.out ] && echo "netflix-tests/EID-TestNetflix.out found" || echo "netflix-tests/EID-TestNetflix.out NOT FOUND"
+	@[ -e netflix-tests/EID-TestNetflix.py  ] && echo "netflix-tests/EID-TestNetflix.py  found" || echo "netflix-tests/EID-TestNetflix.py  NOT FOUND"
+	@[ -e Netflix.html                      ] && echo "Netflix.html                      found" || echo "Netflix.html                      NOT FOUND"
+	@[ -e Netflix.py                        ] && echo "Netflix.py                        found" || echo "Netflix.py                        NOT FOUND"
+	@[ -e RunNetflix.in                     ] && echo "RunNetflix.in                     found" || echo "RunNetflix.in                     NOT FOUND"
+	@[ -e RunNetflix.out                    ] && echo "RunNetflix.out                    found" || echo "RunNetflix.out                    NOT FOUND"
+	@[ -e RunNetflix.py                     ] && echo "RunNetflix.py                     found" || echo "RunNetflix.py                     NOT FOUND"
+	@[ -e TestNetflix.out                   ] && echo "TestNetflix.out                   found" || echo "TestNetflix.out                   NOT FOUND"
+	@[ -e TestNetflix.py                    ] && echo "TestNetflix.py                    found" || echo "TestNetflix.py                    NOT FOUND"
+
+clean:
+	rm -f .coverage
+	rm -f *.pyc
+	rm -f RunNetflix.tmp
+	rm -f TestNetflix.out
+	rm -rf __pycache__
+
+config:
+	git config -l

@@ -1,0 +1,41 @@
+all:
+
+Collatz.html: Collatz.py
+	pydoc3 -w Collatz
+
+Collatz.log:
+	git log > Collatz.log
+
+RunCollatz.tmp: RunCollatz.py RunCollatz.in
+	RunCollatz.py < RunCollatz.in > RunCollatz.tmp
+	diff RunCollatz.tmp RunCollatz.out
+
+TestCollatz.out: TestCollatz.py
+	coverage3 run    --branch TestCollatz.py >  TestCollatz.out 2>&1
+	coverage3 report -m                      >> TestCollatz.out
+
+collatz-tests:
+	git clone https://github.com/cs373-spring-2015/collatz-tests.git
+
+check:
+	@[ -e collatz-tests/EID-RunCollatz.in   ] && echo "collatz-tests/EID-RunCollatz.in   found" || echo "collatz-tests/EID-RunCollatz.in   NOT FOUND"
+	@[ -e collatz-tests/EID-RunCollatz.out  ] && echo "collatz-tests/EID-RunCollatz.out  found" || echo "collatz-tests/EID-RunCollatz.out  NOT FOUND"
+	@[ -e collatz-tests/EID-TestCollatz.out ] && echo "collatz-tests/EID-TestCollatz.out found" || echo "collatz-tests/EID-TestCollatz.out NOT FOUND"
+	@[ -e collatz-tests/EID-TestCollatz.py  ] && echo "collatz-tests/EID-TestCollatz.py  found" || echo "collatz-tests/EID-TestCollatz.py  NOT FOUND"
+	@[ -e Collatz.html                      ] && echo "Collatz.html                      found" || echo "Collatz.html                      NOT FOUND"
+	@[ -e Collatz.py                        ] && echo "Collatz.py                        found" || echo "Collatz.py                        NOT FOUND"
+	@[ -e RunCollatz.in                     ] && echo "RunCollatz.in                     found" || echo "RunCollatz.in                     NOT FOUND"
+	@[ -e RunCollatz.out                    ] && echo "RunCollatz.out                    found" || echo "RunCollatz.out                    NOT FOUND"
+	@[ -e RunCollatz.py                     ] && echo "RunCollatz.py                     found" || echo "RunCollatz.py                     NOT FOUND"
+	@[ -e TestCollatz.out                   ] && echo "TestCollatz.out                   found" || echo "TestCollatz.out                   NOT FOUND"
+	@[ -e TestCollatz.py                    ] && echo "TestCollatz.py                    found" || echo "TestCollatz.py                    NOT FOUND"
+
+clean:
+	rm -f .coverage
+	rm -f *.pyc
+	rm -f RunCollatz.tmp
+	rm -f TestCollatz.out
+	rm -rf __pycache__
+
+config:
+	git config -l

@@ -1,0 +1,26 @@
+--
+CS373: Quiz #2 (7 pts)
+--
+
+--------------------------------------------------------------------------
+ 1. What are the three ways a Python script can be run?
+    (3 pts)
+--
+
+specify it as an argument to the interpreter
+make the script executable
+specify it as an argument to import within the interpreter
+
+--------------------------------------------------------------------------
+ 2. Why is assert inappropriate for testing?
+    (2 pts)
+--
+
+first failure skips the rest of the tests
+
+--------------------------------------------------------------------------
+ 3. Besides testing, what else is assert inappropriate for?
+    (1 pts)
+--
+
+user errors

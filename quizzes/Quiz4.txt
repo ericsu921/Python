@@ -1,0 +1,38 @@
+--
+CS373: Quiz #4 (7 pts)
+--
+
+--------------------------------------------------------------------------
+ 1. What are the four elements of the Circle of Life?
+    [XP: Ch.2, Pg. 16]
+    (2 pts)
+--
+
+define, estimate, choose, build
+
+--------------------------------------------------------------------------
+ 2. What is a spike solution?
+    [XP: Ch. 6, Pg. 40]
+    (2 pts)
+--
+
+an experiment, where you do enough work to get a good feeling for how to
+implement the story
+
+--------------------------------------------------------------------------
+ 3. Given positive integers, b and e, let m = (e / 2) + 1.
+    If b < m, then max_cycle_length(b, e) = max_cycle_length(m, e).
+    True or False?
+    [Collatz]
+    (2 pts)
+--
+
+True
+
+Consider b = 10, e = 100.
+Then m = (100 / 2) + 1 = 51.
+max_cycle_length(10, 100) = max_cycle_length(51, 100)
+All the numbers in the range [10, 50] can be mapped to numbers in the
+range [51, 100] by one or more doublings, so none of the numbers in the
+range [10, 50] could have a larger cycle length than the numbers in the
+range [51, 100].
